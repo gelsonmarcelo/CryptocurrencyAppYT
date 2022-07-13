@@ -14,10 +14,10 @@ class GetCoinUseCase @Inject constructor(
     private val repository: CoinRepository
 ) {
     //overriding invoke u can call GetCoinsUseCase directly as if it was a function
-    operator fun invoke(coindId: String): Flow<Resource<CoinDetail>> = flow {
+    operator fun invoke(coinId: String): Flow<Resource<CoinDetail>> = flow {
         try {
             emit(Resource.Loading())
-            val coin = repository.getCoinById(coindId).toCoinDetail()
+            val coin = repository.getCoinById(coinId).toCoinDetail()
             emit(Resource.Success(coin))
         } catch (e: HttpException) {
             emit(Resource.Error(e.localizedMessage ?: "An unexpected error occured"))
